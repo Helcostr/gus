@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GUS: Guild Ultimate Search (for Habitica)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <style>
+      body {
+        text-align: center
+      }
+
+      form {
+        border: 2px solid #000;
+        display: inline-block;
+        text-align: left;
+        max-width: 750px;
+        padding: 0.5em;
+      }
+      form section {
+        padding: 0.5em;
+        border: 2px solid #000;
+      }
+      .note {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>GUS</h1>
+    <form>
+      <section>
+        <h3>Search Term</h3>
+        <input id="searchTerm" placeholder="Search for..."><br>
+        <h4>Search in...</h4>
+        <label><input type="checkbox" id="searchTitle"> Guild Title</label><br>
+        <label><input type="checkbox" id="searchSummary"> Guild Summary</label>
+        <p>Guild Description cannot be searched.</p>
+        <label><input type="checkbox" id="useSearchTerm"> Don't use a search term</label><br>
+        <p class="note">Note: When putting in multiple search terms, adhere to the following rules:<br>If all search terms must be in the guild, use "<i>search term</i> && <i>search term</i>". If either search term can be found in the guild, use "<i>search term</i> || <i>search term</i>"</p>
+      </section>
+    </form>
+  </body>
+</html>
