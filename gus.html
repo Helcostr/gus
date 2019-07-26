@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GUS: Guild Ultimate Search (for Habitica)</title>
+    <title>GUS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <style>
@@ -39,13 +39,33 @@
       <section>
         <h3>Language</h3>
         <select id="langSelect">
-          <option value="no-lang">Don't filter by Language</option>
+          <option value="no-lang">Don't filter by Specific Language</option>
           <option value="En">English</option>
           <option value="Fr">French</option>
           <option value="Pt">Portugese</option>
           <option value="Ru">Russian</option>
         </select>
+        <label><input type="checkbox"> Must contain my language</label>
         <p>More languages coming...</p>
+      </section>
+      <section>
+        <h3>Category</h3>
+        <label>Main category:
+          <select id="mainCategory">
+            <option value="no-category">Don't filter by Category</option>
+            <option value="The World of Habitica">The World of Habitica</option>
+            <option value="Recovery & Support Groups">Recovery & Support Groups</option>
+            <option value="Getting Organized">Getting Organized</option>
+            <option value="Health & Fitness">Health & fitness</option>
+            <option value="Self-Improvement">Self-Improvement</option>
+            <option value="Belief Structures">Belief Structures</option>
+            <option value="Scholarly Pursuits">Scholarly Pursuits</option>
+            <option value="Occupations and Fields of Study">Occupations and Fields of Study</option>
+            <option value="Computers">Computers</option>
+            <option value="Creative Pursuits">Creative Puruits</option>
+            <option value="Gaming">Gaming</option>
+          </select>
+        </label>
       </section>
     </form>
   </body>
