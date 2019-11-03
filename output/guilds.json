@@ -1,0 +1,35 @@
+{
+  "82fe50b1-4fa5-4e94-8114-aa66516c0d9d": {
+      "id": "82fe50b1-4fa5-4e94-8114-aa66516c0d9d",
+      "url": "https://habitica.com/groups/guild/82fe50b1-4fa5-4e94-8114-aa66516c0d9d",
+      "title": "The Scholars",
+      "summary": "The Scholars is a guild for all kinds of lovers of learning! Share tips, tricks and tools of the trade with your fellows here. **NB: Please do not look for or advertise parties in this guild. Use the 'Party Wanted' guild instead.**",
+      "membercount": 68535,
+      "official": false,
+      "lang": ["langEn"],
+      "category": "catScholar",
+      "sub": "subScholarAcademic"
+  },
+  "ac9ff1fd-50fc-46a6-9791-e1833173dab3": {
+      "id": "ac9ff1fd-50fc-46a6-9791-e1833173dab3",
+      "url": "https://habitica.com/groups/guild/ac9ff1fd-50fc-46a6-9791-e1833173dab3",
+      "title": "Brasil",
+      "summary": "FÃ SITE: Habitica.com.br Comunidade Brasileira do Habitica! Grupo dedicado ao desenvolvimento pessoal.",
+      "membercount": 3107,
+      "official": false,
+      "lang": ["langPt"],
+      "category": "catLangCommuity",
+      "sub": "subLangCommuityCountry"
+  },
+  "8d44f1ab-2615-47dc-a143-3236c93c67b6": {
+      "id": "8d44f1ab-2615-47dc-a143-3236c93c67b6",
+      "url": "https://habitica.com/groups/guild/8d44f1ab-2615-47dc-a143-3236c93c67b6",
+      "title": "Scandinavian Vikings",
+      "summary": "Guild for people living in Scandinavian countries, or people interested in the area. ",
+      "membercount": 289,
+      "official": false,
+      "lang": ["langEn", "langDa", "langFi", "langNo", "langSv"],
+      "category": "catLangCommuity",
+      "sub": "subLangCommuityCountry"
+  }
+}

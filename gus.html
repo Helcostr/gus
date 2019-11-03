@@ -4,17 +4,32 @@
     <title>GUS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
       body {
         text-align: center
       }
 
-      form {
+      body form {
+        display: none;
+      }
+
+      body #results {
+        display: none;
+      }
+
+      body[data-state=form] form {
         display: inline-block;
-        text-align: left;
         max-width: 750px;
       }
-      form section {
+
+      body[data-state=results] #results {
+        display: inline-block;
+        max-width: 750px;
+      }
+
+      section {
+        text-align: left;
         padding: 0.5em;
         border: 2px solid #000;
       }
@@ -23,9 +38,9 @@
       }
     </style>
   </head>
-  <body>
+  <body onload="init()">
     <h1>GUS</h1>
-    <form>
+    <form id="searchForm">
       <section>
         <h3>Search Term</h3>
         <input id="searchTerm" placeholder="Search for..."><br>
@@ -50,23 +65,69 @@
       </section>
       <section>
         <h3>Category</h3>
-        <label>Main category:
+        <label>Main category:<br>
           <select id="mainCategory">
-            <option value="no-category">Don't filter by Category</option>
-            <option value="The World of Habitica">The World of Habitica</option>
-            <option value="Recovery & Support Groups">Recovery & Support Groups</option>
-            <option value="Getting Organized">Getting Organized</option>
-            <option value="Health & Fitness">Health & fitness</option>
-            <option value="Self-Improvement">Self-Improvement</option>
-            <option value="Belief Structures">Belief Structures</option>
-            <option value="Scholarly Pursuits">Scholarly Pursuits</option>
-            <option value="Occupations and Fields of Study">Occupations and Fields of Study</option>
-            <option value="Computers">Computers</option>
-            <option value="Creative Pursuits">Creative Puruits</option>
-            <option value="Gaming">Gaming</option>
+            <option value="none">Loading Categories...</option>
+          </select><br>
+          <select id="subCategory">
+            <option value="none">Please pick a Main Category</option>
           </select>
+          <br>
+          <label><input type="checkbox" id="habiticaOfficial"> Habitica Offical</label>
         </label>
       </section>
+      <button onclick="searchGuilds()">Search Guilds</button>
     </form>
+    <div id="results">
+      <h2>Search Results</h2>
+    </div>
+    <script>
+      var initState = "form";
+      var lang = "En";
+      var categories = {};
+      var guilds = {};
+      function setPageState(state) {
+        document.getElementsByTagName("BODY")[0].setAttribute("data-state", state);
+      }
+      function getGuilds(location = "./output/guilds.json") {
+        function setGuilds(data) {
+          guilds = data;
+        }
+        $.ajax({
+          dataType: "json",
+          url: location,
+          method: 'get',
+          success: function(response) {
+            setGuilds(response);
+          }
+        });
+      }
+      function getCategories() {
+        function setCategories(data) {
+          categories = data;
+            setMainCategories();
+        }
+        var location = "./translation/lang" + lang + ".json";
+        $.ajax({
+          dataType: "json",
+          url: location,
+          method: 'get',
+          success: function(response) {
+            setCategories(response.categories);
+          }
+        });
+      }
+      function setMainCategories() {
+        
+      }
+      function setSubCategories() {
+
+      }
+      function init() {
+        getGuilds();
+        getCategories();
+        setPageState(initState);
+      }
+    </script>
   </body>
 </html>
