@@ -49,32 +49,29 @@
         <label><input type="checkbox" id="searchSummary"> Guild Summary</label>
         <p>Guild Description cannot be searched.</p>
         <label><input type="checkbox" id="useSearchTerm"> Don't use a search term</label><br>
-        <p class="note">Note: When putting in multiple search terms, adhere to the following rules:<br>If all search terms must be in the guild, use "<i>search term</i> && <i>search term</i>". If either search term can be found in the guild, use "<i>search term</i> || <i>search term</i>"</p>
+        <p class="note">Note: When putting in multiple search terms, adhere to the following rules:<br>If all search terms must be in the guild, use "<i>search term</i> && <i>search term</i>". If either search term can be found in the guild, use "<i>search term</i> || <i>search term</i>". If you use both, you will have problems with the results.</p>
       </section>
       <section>
         <h3>Language</h3>
         <select id="langSelect">
-          <option value="no-lang">Don't filter by Specific Language</option>
-          <option value="En">English</option>
-          <option value="Fr">French</option>
-          <option value="Pt">Portugese</option>
-          <option value="Ru">Russian</option>
+          <option value="none">Loading Languages...</option>
         </select>
         <label><input type="checkbox"> Must contain my language</label>
         <p>More languages coming...</p>
       </section>
       <section>
         <h3>Category</h3>
-        <label>Main category:<br>
-          <select id="mainCategory">
+        <label>Main category:
+          <select id="mainCategory" onchange='setSubCategories()'>
             <option value="none">Loading Categories...</option>
-          </select><br>
+          </select>
+        </label><br>
+        <label>Sub Category:
           <select id="subCategory">
             <option value="none">Please pick a Main Category</option>
           </select>
-          <br>
-          <label><input type="checkbox" id="habiticaOfficial"> Habitica Offical</label>
-        </label>
+        </label><br>
+        <label><input type="checkbox" id="habiticaOfficial"> Habitica Offical</label>
       </section>
       <button onclick="searchGuilds()">Search Guilds</button>
     </form>
@@ -84,14 +81,33 @@
     <script>
       var initState = "form";
       var lang = "En";
+      var translationFile = {};
       var categories = {};
       var guilds = {};
+      var languages = [];
       function setPageState(state) {
         document.getElementsByTagName("BODY")[0].setAttribute("data-state", state);
       }
-      function getGuilds(location = "./output/guilds.json") {
+      function getLanguages() {
+        var languagesHTML = "<option value='none'>Don't filter by Specific Language</option>";
+        for (var guild in guilds) {
+          for (var language in guilds[guild].lang) {
+            if (languages.indexOf(guilds[guild].lang[language]) == -1) {
+              languages.push(guilds[guild].lang[language]);
+              if (translationFile.languages[guilds[guild].lang[language].slice(0,2)]) {
+                languagesHTML += "<option value='" + guilds[guild].lang[language] + "'>" + translationFile.languages[guilds[guild].lang[language].slice(0,2)] + "</option>";
+              } else {
+                languagesHTML += "<option value='" + guilds[guild].lang[language] + "'>" + guilds[guild].lang[language].slice(5) + "</option>";
+              }
+            }
+          }
+        }
+        document.getElementById("langSelect").innerHTML = languagesHTML;
+      }
+      function getGuilds(location = "./output/gus.json") {
         function setGuilds(data) {
-          guilds = data;
+          guilds = data.guild;
+          getLanguages();
         }
         $.ajax({
           dataType: "json",
@@ -104,8 +120,9 @@
       }
       function getCategories() {
         function setCategories(data) {
-          categories = data;
-            setMainCategories();
+          translationFile = data;
+          categories = data.categories;
+          setMainCategories();
         }
         var location = "./translation/lang" + lang + ".json";
         $.ajax({
@@ -113,15 +130,28 @@
           url: location,
           method: 'get',
           success: function(response) {
-            setCategories(response.categories);
+            setCategories(response);
           }
         });
       }
       function setMainCategories() {
-        
+        var categoriesHTML = "<option value='none'>Don't filter by Category</option>";
+        for (var key in categories) {
+          categoriesHTML += "<option value='" + key + "'>" + categories[key][0] + "</option>";
+        }
+        document.getElementById("mainCategory").innerHTML = categoriesHTML;
       }
       function setSubCategories() {
-
+        var mainCategory = document.getElementById("mainCategory").value;
+        if (mainCategory == "none") {
+          document.getElementById('subCategory').innerHTML = '<option value="none">Please pick a Main Category</option>';
+        } else {
+          var categoriesHTML = "<option value='none'>Don't filter by Subcategory</option>";
+          for (var key in categories[mainCategory][1]) {
+            categoriesHTML += "<option value='" + key + "'>" + categories[mainCategory][1][key] + "</option>";
+          }
+          document.getElementById('subCategory').innerHTML = categoriesHTML;
+        }
       }
       function init() {
         getGuilds();
