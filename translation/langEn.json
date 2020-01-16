@@ -41,7 +41,7 @@
       "Online Courses": "Online Courses",
       "Reading": "Reading"
     }],
-    "Occupations and Fields of Study": ["Occupations and Fields of Study", {
+    "Occupations & Fields of Study": ["Occupations & Fields of Study", {
       "Teaching": "Teaching",
       "Social Sciences": "Social Sciences",
       "Philosophy": "Philosophy",
@@ -68,8 +68,8 @@
     }],
     "Gaming": ["Gaming", {
       "Gaming Communities": "Gaming Communities",
-      "Video and Tabletop Games": "Video and Tabletop Games",
-      "Mobile- and Browser-Based Games": "Mobile- and Browser-Based Games"
+      "Board, TableTop, & Live Action": "Board, TableTop, & Live Action",
+      "Electronic Play": "Electronic Play"
     }],
     "Fandom": ["Fandom", {
       "General Fandom": "General Fandom",
