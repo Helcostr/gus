@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
     <style>
       body {
         text-align: center
@@ -21,7 +23,7 @@
 
       body[data-state=results] #results {
         display: inline-block;
-        max-width: 750px;
+        /*max-width: 750px;*/
       }
 
       section {
@@ -36,49 +38,51 @@
   </head>
   <body onload="init()">
     <h1>GUS</h1>
+    <h2 id="guild-ultimate-search">Guild Ultimate Search</h2>
     <div id="searchForm">
       <form>
         <section>
-          <h3>Search Term</h3>
+          <h3 id="search-term">Search Term</h3>
           <input id="searchTerm" placeholder="Search for..."><br>
-          <h4>Search in...</h4>
-          <label><input type="checkbox" id="searchTitle" checked> Guild Title</label><br>
-          <label><input type="checkbox" id="searchSummary" checked> Guild Summary</label>
-          <p>Guild Description cannot be searched.</p>
-          <label><input type="checkbox" id="useSearchTerm"> Don't use a search term</label><br>
-          <p class="note">Note: When putting in multiple search terms, adhere to the following rules:<br>If all search terms must be in the guild, use "<i>search term</i> && <i>search term</i>". If either search term can be found in the guild, use "<i>search term</i> || <i>search term</i>". If you use both, you will have problems with the results.</p>
+          <h4 id="search-in">Search in...</h4>
+          <label><input type="checkbox" id="searchTitle" checked> <span id="guild-title">Guild Title</span></label><br>
+          <label><input type="checkbox" id="searchSummary" checked> <span id="guild-summary">Guild Summary</span></label>
+          <p id="no-search-description">Guild Description cannot be searched.</p>
+          <label><input type="checkbox" id="useSearchTerm"> <span id="dont-use-search-term">Don't use a search term</span></label><br>
+          <p class="note"><span id="note-multiple-search-terms">Note: When putting in multiple search terms, adhere to the following rules:<br>If all search terms must be in the guild, use "<i>search term</i> && <i>search term</i>". If either search term can be found in the guild, use "<i>search term</i> || <i>search term</i>". If you use both, you will have problems with the results.</span></p>
         </section>
         <section>
-          <h3>Language</h3>
+          <h3 id="language">Language</h3>
           <select id="langSelect">
             <option value="none">Loading Languages...</option>
           </select>
-          <label><input type="checkbox" id="containsMyLanguage"> Must contain my language</label>
+          <label><input type="checkbox" id="containsMyLanguage"> <span id="must-contain-my-language">Must contain my language</span></label>
         </section>
         <section>
-          <h3>Category</h3>
-          <label>Main category:
+          <h3><id id="category">Category</id></h3>
+          <label><span id="main-category">Main category:</span>
             <select id="mainCategory" onchange='setSubCategories()'>
               <option value="none">Loading Categories...</option>
             </select>
           </label><br>
-          <label>Sub Category:
+          <label><span id="sub-category">Sub Category:</span>
             <select id="subCategory">
-              <option value="none">Please pick a Main Category</option>
+              <option value="none" id="pick-main-category">Please pick a Main Category</option>
             </select>
           </label><br>
-          <label><input type="checkbox" id="habiticaOfficial"> Must be Habitica Offical</label>
+          <label><input type="checkbox" id="habiticaOfficial"> <span id="habitica-official">Must be Habitica Offical</span></label>
         </section>
       </form>
       <br>
       <br>
-      <button onclick="searchGuilds()">Search Guilds</button>
+      <button onclick="searchGuilds()" id="search-guilds">Search Guilds</button>
     </div>
     <div id="results">
-      <h2>Search Results</h2>
-      <div id="resultsEndLocation">
+      <h2 id="search-results">Search Results</h2>
+      <table id="resultsTable">
 
-      </div>
+      </table>
+      <p class="note"><span id="last-updated">Last updated on</span> <span id="lastUpdated"></span></p>
     </div>
     <script>
       var initState = "form";
@@ -113,13 +117,19 @@
         getFormInput();
         for (var key in guilds) {
           if (((guilds[key].title.search(formInput.searchTerm) != -1) || (guilds[key].summary.search(formInput.searchTerm) != -1) || formInput.useSearchTerm == false) && //Search Term
-          ((formInput.lang == "none" || guilds[key].lang.indexOf(formInput.lang) != -1) && ((guilds[key].lang.indexOf(lang) != -1 && formInput.containsMyLanguage) || formInput.containsMyLanguage == false)) && //Language
+          ((formInput.habiticaOfficial == false || guilds[key].offical === true) && (formInput.lang == "none" || guilds[key].lang.indexOf(formInput.lang) != -1) && ((guilds[key].lang.indexOf(lang) != -1 && formInput.containsMyLanguage) || formInput.containsMyLanguage == false)) && //Language
           (formInput.mainCategory == "none" || guilds[key].category == formInput.mainCategory) && //Main Category
           (formInput.subCategory == "none" || guilds[key].sub == formInput.subCategory)) { //Sub Category
             results[key] = guilds[key];
           }
         }
-        document.getElementById("resultsEndLocation").innerText = JSON.stringify(results);
+        var tableContents = "<thead><tr><th>Title</th><th>Summary</th><th>Member Count</th><th>Languages Used</th><th>Guild ID</th><th>URL</th><th>Categorization</th><th>Creation Date</th></thead><tbody>";
+        for (var key in results) {
+          tableContents += "<tr><td>" + results[key].title + "</td><td>" + results[key].summary + "</td><td>" + results[key].memberCount + "</td><td>" + results[key].lang.join(", ") + "</td><td>" + results[key].id + "</td><td>" + results[key].url + "</td><td>" + results[key].category + " -> " + results[key].sub + "</td><td>" + (results[key].offical ? "Yes" : "No") + "</td></tr>";
+        }
+        tableContents += "</tbody>";
+        document.getElementById("resultsTable").innerHTML = tableContents;
+        $('#resultsTable').DataTable();
         setPageState("results");
       }
       function getLanguages() {
@@ -148,6 +158,7 @@
           url: location,
           method: 'get',
           success: function(response) {
+            document.getElementById("lastUpdated").innerText = Date(response.lastupdated);
             setGuilds(response);
           }
         });
