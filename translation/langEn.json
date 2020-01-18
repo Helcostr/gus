@@ -146,7 +146,7 @@
     "guild-summary": "Guild Summary",
     "no-search-description": "Guild Description cannot be searched.",
     "dont-use-search-term": "Don't use a search term",
-    "note-multiple-search-terms": "Note: When putting in multiple search terms, adhere to the following rules:<br>If all search terms must be in the guild, use "<i>search term</i> && <i>search term</i>". If either search term can be found in the guild, use '<i>search term</i> || <i>search term</i>'. If you use both, you will have problems with the results.",
+    "note-multiple-search-terms": "Note: When putting in multiple search terms, adhere to the following rules:<br>If all search terms must be in the guild, use &quot;<i>search term</i> && <i>search term</i>&quot;. If either search term can be found in the guild, use '<i>search term</i> || <i>search term</i>'. If you use both, you will have problems with the results.",
     "language": "Language",
     "must-contain-my-language": "Must contain my language",
     "category": "Category",

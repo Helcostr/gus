@@ -87,7 +87,8 @@
     <script>
       var initState = "form";
       var lang = "en - English";
-      var translationFile = "lang" + lang[0].toUpperCase() + lang[1] + ".json";
+      var translationFileLocation = "lang" + lang[0].toUpperCase() + lang[1] + ".json";
+      var translationFile = {};
       var categories = {};
       var guilds = {};
       var languages = [];
@@ -169,7 +170,7 @@
           categories = data.categories;
           setMainCategories();
         }
-        var location = "./translation/" + translationFile;
+        var location = "./translation/" + translationFileLocation;
         $.ajax({
           dataType: "json",
           url: location,
