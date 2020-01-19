@@ -152,10 +152,27 @@
     "category": "Category",
     "main-category": "Main category:",
     "sub-category": "Sub category:",
-    "pick-main-category": "Please pick a main category",
+    "pick-main-category": "Please pick a Main Category",
     "habitica-official": "Must be Habitica Offical",
     "search-guilds": "Search Guilds",
     "search-results": "Search Results",
     "last-updated": "Last updated on"
+  },
+  "js": {
+    "no-filter-category": "Don't filter by Category",
+    "pick-main-category": "Please pick a Main Category",
+    "no-filter-subcat": "Don't filter by Sub Category",
+    "no-filter-lang": "Don't filter by Specific Language",
+    "title": "Title",
+    "summary": "Summary",
+    "member-count": "Member Count",
+    "languages-used": "Languages Used",
+    "guild-id": "Guild ID",
+    "url": "URL",
+    "categorization": "Categorization",
+    "creation-date": "Creation Date"
+  },
+  "placeholders": {
+    "searchTerm": "Search term..."
   }
 }

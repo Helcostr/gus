@@ -98,6 +98,15 @@
         if (document.getElementById(id).type != 'checkbox') return document.getElementById(id).value;
         if (document.getElementById(id).type == 'checkbox') return document.getElementById(id).checked;
       }
+      function translateHtml() {
+        var htmlReplacementsNeeded = translationFile.html;
+        for (var key in htmlReplacementsNeeded) {
+          document.getElementById(key).innerHTML = htmlReplacementsNeeded[key];
+        }
+        for (var key in translationFile.placeholders) {
+          document.getElementById(key).setAttribute("placeholder", translationFile.placeholders[key]);
+        }
+      }
       function setPageState(state) {
         document.getElementsByTagName("BODY")[0].setAttribute("data-state", state);
       }
@@ -124,7 +133,7 @@
             results[key] = guilds[key];
           }
         }
-        var tableContents = "<thead><tr><th>Title</th><th>Summary</th><th>Member Count</th><th>Languages Used</th><th>Guild ID</th><th>URL</th><th>Categorization</th><th>Creation Date</th></thead><tbody>";
+        var tableContents = "<thead><tr><th>" + translationFile.js["title"] + "</th><th>" + translationFile.js["summary"] + "</th><th>" + translationFile.js["member-count"] + "</th><th>" + translationFile.js["languages-used"] + "</th><th>" + translationFile.js["guild-id"] + "</th><th>" + translationFile.js["url"] + "</th><th>" + translationFile.js["categorization"] + "</th><th>" + translationFile.js["creation-date"] + "</th></thead><tbody>";
         for (var key in results) {
           tableContents += "<tr><td>" + results[key].title + "</td><td>" + results[key].summary + "</td><td>" + results[key].memberCount + "</td><td>" + results[key].lang.join(", ") + "</td><td>" + results[key].id + "</td><td>" + results[key].url + "</td><td>" + results[key].category + " -> " + results[key].sub + "</td><td>" + (results[key].offical ? "Yes" : "No") + "</td></tr>";
         }
@@ -134,7 +143,7 @@
         setPageState("results");
       }
       function getLanguages() {
-        var languagesHTML = "<option value='none'>Don't filter by Specific Language</option>";
+        var languagesHTML = "<option value='none'>" + translationFile.js["no-filter-lang"] + "</option>";
         for (var guild in guilds) {
           for (var language in guilds[guild].lang) {
             if (languages.indexOf(guilds[guild].lang[language]) == -1) {
@@ -169,6 +178,7 @@
           translationFile = data;
           categories = data.categories;
           setMainCategories();
+          translateHtml();
         }
         var location = "./translation/" + translationFileLocation;
         $.ajax({
@@ -181,7 +191,7 @@
         });
       }
       function setMainCategories() {
-        var categoriesHTML = "<option value='none'>Don't filter by Category</option>";
+        var categoriesHTML = "<option value='none'>" + translationFile.js["no-filter-category"] + "</option>";
         for (var key in categories) {
           categoriesHTML += "<option value='" + key + "'>" + categories[key][0] + "</option>";
         }
@@ -190,9 +200,9 @@
       function setSubCategories() {
         var mainCategory = document.getElementById("mainCategory").value;
         if (mainCategory == "none") {
-          document.getElementById('subCategory').innerHTML = '<option value="none">Please pick a Main Category</option>';
+          document.getElementById('subCategory').innerHTML = '<option value="none">' + translationFile.js['pick-main-category'] + '</option>';
         } else {
-          var categoriesHTML = "<option value='none'>Don't filter by Subcategory</option>";
+          var categoriesHTML = "<option value='none'>" + translationFile.js["no-filter-subcat"] + "</option>";
           for (var key in categories[mainCategory][1]) {
             categoriesHTML += "<option value='" + key + "'>" + categories[mainCategory][1][key] + "</option>";
           }
