@@ -34,6 +34,9 @@
       .note {
         color: red;
       }
+      a[href="#export"] {
+        color: blue
+      }
     </style>
   </head>
   <body onload="init()">
@@ -49,7 +52,7 @@
           <label><input type="checkbox" id="searchSummary" checked> <span id="guild-summary">Guild Summary</span></label>
           <p id="no-search-description">Guild Description cannot be searched.</p>
           <label><input type="checkbox" id="useSearchTerm"> <span id="dont-use-search-term">Don't use a search term</span></label><br>
-          <p class="note"><span id="note-multiple-search-terms">Note: When putting in multiple search terms, adhere to the following rules:<br>If all search terms must be in the guild, use "<i>search term</i> && <i>search term</i>". If either search term can be found in the guild, use "<i>search term</i> || <i>search term</i>". If you use both, you will have problems with the results.</span></p>
+          <p class="note" style="display:none"><span id="note-multiple-search-terms">Note: When putting in multiple search terms, adhere to the following rules:<br>If all search terms must be in the guild, use "<i>search term</i> && <i>search term</i>". If either search term can be found in the guild, use "<i>search term</i> || <i>search term</i>". If you use both, you will have problems with the results.</span></p>
         </section>
         <section>
           <h3 id="language">Language</h3>
@@ -79,10 +82,16 @@
     </div>
     <div id="results">
       <h2 id="search-results">Search Results</h2>
-      <table id="resultsTable">
-
-      </table>
+      <table id="resultsTable"></table>
       <p class="note"><span id="last-updated">Last updated on</span> <span id="lastUpdated"></span></p>
+      <h3 id="get-markdown-output">Get Markdown Output:</h3>
+      <a id="just-list" href="#export" onclick="markdownOutput('list')">Just List</a><br>
+      <a id="category-socialite-greeting" href="#export" onclick="markdownOutput('category')">Category Socialite Greeting</a><br>
+      <a id="language-socialite-greeting" href="#export" onclick="markdownOutput('language')">Language Socialite Greeting</a><br>
+      <div id="export" style="display:none">
+        <label><span id="include-top-n-results">Number of results to include:</span> <input type="number" min="1" value="5" id="numResults" onchange="updateNumResults()"></label><br>
+        <textarea id="markdownOutput" cols="50" rows="5"></textarea>
+      </div>
     </div>
     <script>
       var initState = "form";
@@ -94,9 +103,16 @@
       var languages = [];
       var formInput = {};
       var results = {};
+      var outputFormat = "list";
+      var outputNumResults = 5;
+      var socialiteGreetings = {};
       function E(id) {
         if (document.getElementById(id).type != 'checkbox') return document.getElementById(id).value;
         if (document.getElementById(id).type == 'checkbox') return document.getElementById(id).checked;
+      }
+      function updateNumResults() {
+        outputNumResults = document.getElementById("numResults").value;
+        markdownOutput();
       }
       function translateHtml() {
         var htmlReplacementsNeeded = translationFile.html;
@@ -127,7 +143,7 @@
         getFormInput();
         for (var key in guilds) {
           if (((guilds[key].title.search(formInput.searchTerm) != -1) || (guilds[key].summary.search(formInput.searchTerm) != -1) || formInput.useSearchTerm == false) && //Search Term
-          ((formInput.habiticaOfficial == false || guilds[key].offical === true) && (formInput.lang == "none" || guilds[key].lang.indexOf(formInput.lang) != -1) && ((guilds[key].lang.indexOf(lang) != -1 && formInput.containsMyLanguage) || formInput.containsMyLanguage == false)) && //Language
+          ((formInput.habiticaOfficial == false || guilds[key].offical === true) && (formInput.lang == "none" || guilds[key].langAll || guilds[key].lang.indexOf(formInput.lang) != -1) && ((guilds[key].lang.indexOf(lang) != -1 && formInput.containsMyLanguage) || formInput.containsMyLanguage == false)) && //Language
           (formInput.mainCategory == "none" || guilds[key].category == formInput.mainCategory) && //Main Category
           (formInput.subCategory == "none" || guilds[key].sub == formInput.subCategory)) { //Sub Category
             results[key] = guilds[key];
@@ -135,11 +151,15 @@
         }
         var tableContents = "<thead><tr><th>" + translationFile.js["title"] + "</th><th>" + translationFile.js["summary"] + "</th><th>" + translationFile.js["member-count"] + "</th><th>" + translationFile.js["languages-used"] + "</th><th>" + translationFile.js["guild-id"] + "</th><th>" + translationFile.js["url"] + "</th><th>" + translationFile.js["categorization"] + "</th><th>" + translationFile.js["creation-date"] + "</th></thead><tbody>";
         for (var key in results) {
-          tableContents += "<tr><td>" + results[key].title + "</td><td>" + results[key].summary + "</td><td>" + results[key].memberCount + "</td><td>" + results[key].lang.join(", ") + "</td><td>" + results[key].id + "</td><td>" + results[key].url + "</td><td>" + results[key].category + " -> " + results[key].sub + "</td><td>" + (results[key].offical ? "Yes" : "No") + "</td></tr>";
+          tableContents += "<tr><td><a href='" + results[key].url + "'>" + results[key].title + "</a></td><td>" + results[key].summary + "</td><td>" + results[key].memberCount + "</td><td>" + (results[key].langAll ? translationFile.js["lang-all"] : results[key].lang.join(", ")) + "</td><td>" + results[key].id + "</td><td>" + results[key].url + "</td><td>" + results[key].category + " -> " + results[key].sub + "</td><td>" + (results[key].offical ? "Yes" : "No") + "</td></tr>";
         }
         tableContents += "</tbody>";
         document.getElementById("resultsTable").innerHTML = tableContents;
-        $('#resultsTable').DataTable();
+        var table = $('#resultsTable').DataTable();
+        
+        document.getElementsByClassName('sorting')[1].click();
+        document.getElementsByClassName('sorting_asc')[0].click();
+
         setPageState("results");
       }
       function getLanguages() {
@@ -157,6 +177,18 @@
           }
         }
         document.getElementById("langSelect").innerHTML = languagesHTML;
+        function setSocialiteGreetings(data) {
+          socialiteGreetings = data;
+        }
+        var location = "./translation/languageSocialiteGreetings.json";
+        $.ajax({
+          dataType: "json",
+          url: location,
+          method: 'get',
+          success: function(response) {
+            setSocialiteGreetings(response);
+          }
+        });
       }
       function getGuilds(location = "./output/gus.json") {
         function setGuilds(data) {
@@ -168,6 +200,7 @@
           url: location,
           method: 'get',
           success: function(response) {
+            console.log(response.lastupdated);
             document.getElementById("lastUpdated").innerText = Date(response.lastupdated);
             setGuilds(response);
           }
@@ -208,6 +241,38 @@
           }
           document.getElementById('subCategory').innerHTML = categoriesHTML;
         }
+        markdownOutput += "\n\n";
+      }
+      function markdownOutput(method = undefined) {
+        //Set method if present
+        if (method) outputFormat = method;
+        var markdownOutput = "";
+        if (outputFormat == "category") markdownOutput += "Hi! Here are some guilds I found about \"" + (formInput.mainCategory == "none" ? "NO CATEGORY SELECTED" : formInput.mainCategory) + (formInput.subCategory != "none" ? " -> " + formInput.subCategory : "") + "\" by asking [GUS](https://oldgods.net/piratetool/gus.html):\n\n";
+        if (outputFormat == "language") {
+          if (socialiteGreetings[formInput.lang.slice(0,2)]) {
+            markdownOutput += socialiteGreetings[formInput.lang.slice(0,2)].slice(0, socialiteGreetings[formInput.lang.slice(0,2)].indexOf("|||")) + "\n\n";
+          } else {
+            markdownOutput += "[ERROR: We do not have a socialite greeting in " + (formInput.lang != "none" ? formInput.lang : "NO LANGUAGE SELECTED") + ". Let us know in the [Testing & Bug Squashing for Dragon Tools](https://habitica.com/groups/guild/d9a0ec1e-352b-4697-a5d5-fb45c98fb4a3) guild and we'll work on it!]\n\n";
+          }
+        }
+
+        //Add List
+        for (i=1;i<=outputNumResults;i++) {
+          if (i > 1) markdownOutput += "\n";
+          markdownOutput += "- [" + document.getElementsByTagName("TR")[i].getElementsByTagName("TD")[0].innerText + "](" + document.getElementsByTagName("TR")[i].getElementsByTagName("TD")[5].innerText + "]";
+        }
+
+        if (outputFormat == "language") {
+          markdownOutput += "\n\n";
+          if (socialiteGreetings[formInput.lang.slice(0,2)]) {
+            markdownOutput += socialiteGreetings[formInput.lang.slice(0,2)].slice(3 + socialiteGreetings[formInput.lang.slice(0,2)].indexOf("|||"));
+          } else {
+            markdownOutput += "[ERROR: We do not have a socialite greeting in " + (formInput.lang != "none" ? formInput.lang : "NO LANGUAGE SELECTED") + ". Let us know in the [Testing & Bug Squashing for Dragon Tools](https://habitica.com/groups/guild/d9a0ec1e-352b-4697-a5d5-fb45c98fb4a3) guild and we'll work on it!]";
+          }
+        }
+
+        document.getElementById("markdownOutput").innerHTML = markdownOutput;
+        document.getElementById("export").style.display = "block";
       }
       function init() {
         getGuilds();

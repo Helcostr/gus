@@ -156,7 +156,11 @@
     "habitica-official": "Must be Habitica Offical",
     "search-guilds": "Search Guilds",
     "search-results": "Search Results",
-    "last-updated": "Last updated on"
+    "last-updated": "Last updated on",
+    "just-list": "Just List",
+    "category-socialite-greeting": "Category Socialite Greeting",
+    "language-socialite-greeting": "Language Socialite Greeting",
+    "include-top-n-results": "number of results to include:"
   },
   "js": {
     "no-filter-category": "Don't filter by Category",
@@ -170,7 +174,8 @@
     "guild-id": "Guild ID",
     "url": "URL",
     "categorization": "Categorization",
-    "creation-date": "Creation Date"
+    "creation-date": "Creation Date",
+    "lang-all": "All Languages Spoken"
   },
   "placeholders": {
     "searchTerm": "Search term..."
