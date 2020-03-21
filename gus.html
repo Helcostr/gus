@@ -63,7 +63,7 @@
           <label><input type="checkbox" id="searchSummary" checked> <span id="guild-summary">Guild Summary</span></label>
           <p id="no-search-description">Guild Description cannot be searched.</p>
           <label><input type="checkbox" id="useSearchTerm"> <span id="dont-use-search-term">Don't use a search term</span></label><br>
-          <p class="note" style="display:none"><span id="note-multiple-search-terms">Note: When putting in multiple search terms, adhere to the following rules:<br>If all search terms must be in the guild, use "<i>search term</i> && <i>search term</i>". If either search term can be found in the guild, use "<i>search term</i> || <i>search term</i>". If you use both, you will have problems with the results.</span></p>
+          <p class="note"><span id="note-multiple-search-terms">Note: When putting in multiple search terms, adhere to the following rules:<br>If all search terms must be in the guild, use "<i>search term</i> && <i>search term</i>". If either search term can be found in the guild, use "<i>search term</i> || <i>search term</i>". If you use both, && will be evaluated before ||.</span></p>
         </section>
         <section>
           <h3 id="language">Language</h3>
@@ -90,6 +90,9 @@
       <br>
       <br>
       <button onclick="searchGuilds()" id="search-guilds">Search Guilds</button>
+      <br>
+      <br>
+      <p id="bug-report">Found a bug? Report it in the <a href="https://habitica.com/groups/guild/d9a0ec1e-352b-4697-a5d5-fb45c98fb4a3">Testing & Bug Squashing for Dragon Tools</a></p>
     </div>
     <div id="results">
       <h2 id="search-results">Search Results</h2>
@@ -165,12 +168,32 @@
 
       function searchGuilds() { //Searches the guild list
         getFormInput(); //Gets input
+        var searchTerms = formInput.searchTerm.split(" && ");
+        var validSearch;
+        var orTerms;
+        var validOr;
         for (var key in guilds) { //For each guild, it checks to see if it fitts the requirements
-          if (((guilds[key].title.search(formInput.searchTerm) != -1) || (guilds[key].summary.search(formInput.searchTerm) != -1) || formInput.useSearchTerm == false) && //Search Term
-          ((formInput.habiticaOfficial == false || guilds[key].offical === true) && (formInput.lang == "none" || guilds[key].langAll || guilds[key].lang.indexOf(formInput.lang) != -1) && ((guilds[key].lang.indexOf(lang) != -1 && formInput.containsMyLanguage) || formInput.containsMyLanguage == false)) && //Language
+          if (((formInput.habiticaOfficial == false || guilds[key].offical === true) && (formInput.lang == "none" || guilds[key].langAll || guilds[key].lang.indexOf(formInput.lang) != -1) && ((guilds[key].lang.indexOf(lang) != -1 && formInput.containsMyLanguage) || formInput.containsMyLanguage == false)) && //Language
           (formInput.mainCategory == "none" || guilds[key].category == formInput.mainCategory) && //Main Category
           (formInput.subCategory == "none" || guilds[key].sub == formInput.subCategory)) { //Sub Category
-            results[key] = guilds[key];
+            validSearch = true;
+            if (formInput.useSearchTerm) {
+              for (var term in searchTerms) { //evaluate && searches
+                if ((guilds[key].title.toLowerCase().search(searchTerms[term].toLowerCase()) == -1) && (guilds[key].summary.toLowerCase().search(searchTerms[term].toLowerCase()) == -1)) {
+                  validSearch = false;
+                } else { //evaluate || searches
+                  orTerms = searchTerms[term].split(" || ");
+                  for (var orTerm in orTerms) {
+                    validOr = false;
+                    if ((guilds[key].title.toLowerCase().search(orTerms[orTerm].toLowerCase()) != -1) || (guilds[key].summary.toLowerCase().search(orTerms[orTerm].toLowerCase()) != -1)) {
+                      validOr = true;
+                    }
+                  }
+                  if (!validOr) validSearch = false;
+                }
+              }
+            }
+            if (validSearch) results[key] = guilds[key];
           }
         }
         //Generates table HTML
