@@ -1,0 +1,96 @@
+{
+  "lastupdated": "2020-12-26T09:27:22.391",
+  "totals": {
+    "public": 1071,
+    "clearSailing": 988,
+    "sizeBreakdown": {
+      "gold": 167,
+      "silver": 387,
+      "bronze": 517
+    },
+    "publicLang": {
+      "lang": {
+        "en": 957,
+        "he": 7,
+        "de": 22,
+        "pt": 29,
+        "ja": 22,
+        "tl": 6,
+        "ru": 15,
+        "et": 6,
+        "eu": 6,
+        "bg": 6
+      },
+      "langPrimary": {
+        "en": 956,
+        "he": 7,
+        "de": 21,
+        "pt": 28,
+        "ja": 16,
+        "eu": 6,
+        "bg": 6
+      },
+      "langAll": 5,
+      "langPrimaryNoEng": 98
+    }
+  },
+  "guild": {
+    "2cbb0a7c-8040-43c9-9f7a-c45fb540dae2": {
+      "id": "2cbb0a7c-8040-43c9-9f7a-c45fb540dae2",
+      "url": "https://habitica.com/groups/guild/2cbb0a7c-8040-43c9-9f7a-c45fb540dae2",
+      "title": "Video Producer's Organization (film, TV, YouTube)",
+      "summary": "Video Producer's Organization -- all aspects of video & film making for film, TV or YouTube",
+      "memberCount": 322,
+      "memberColor": "silver",
+      "official": false,
+      "lang": [
+        "en"
+      ],
+      "langPrimary": [
+        "en"
+      ],
+      "langAll": false,
+      "category": "catCreati",
+      "subcategory": "subCreati_VideoPhotography",
+      "created": "2019-02-18T00:00:00.000Z"
+    },
+    "f6ac2501-1c5b-4f54-98a5-8339dc953b9d": {
+      "id": "f6ac2501-1c5b-4f54-98a5-8339dc953b9d",
+      "url": "https://habitica.com/groups/guild/f6ac2501-1c5b-4f54-98a5-8339dc953b9d",
+      "title": "Gaymers",
+      "summary": "Gaymers",
+      "memberCount": 1880,
+      "memberColor": "gold",
+      "official": false,
+      "lang": [
+        "en"
+      ],
+      "langPrimary": [
+        "en"
+      ],
+      "langAll": false,
+      "category": "catGaming",
+      "subcategory": "subGaming_GamingCommunities",
+      "created": "2019-02-18T00:00:00.000Z"
+    },
+    "662cf71f-a69e-49b9-bf9c-cd61d82a6b89": {
+      "id": "662cf71f-a69e-49b9-bf9c-cd61d82a6b89",
+      "url": "https://habitica.com/groups/guild/662cf71f-a69e-49b9-bf9c-cd61d82a6b89",
+      "title": "🍀🌺social gardening🏵🌱",
+      "summary": "Learn how to become the fertilizer to support other peoples growth! What comes around goes around. Find the help and support you need to bloom.",
+      "memberCount": 24,
+      "memberColor": "bronze",
+      "official": false,
+      "lang": [
+        "en"
+      ],
+      "langPrimary": [
+        "en"
+      ],
+      "langAll": false,
+      "category": "catSelfIm",
+      "subcategory": "subSelfIm_BeYourBestSelf",
+      "created": "2019-12-04T00:00:00.000Z"
+    }
+  }
+}
