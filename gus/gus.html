@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TO BE REPLACED</title>
+    <!--
+      <title>GUS | Guild Ultimate Search (for Habitica)</title>
+      <link href="./css/bootstrap.min.css" rel="stylesheet">
+    -->
+    <!-- JavaScript Stack -->
+    <script src="./js/vue.global.js"></script>
+    <script src="./js/vue-router.global.js"></script>
+    <script src="./js/i18next.min.js"></script>
+    <script src="./js/i18nextHttpBackend.min.js"></script>
+    <script src="./js/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/gus.js"></script>
+    <!--
+      <link rel="stylesheet" href="./css/bootstrap.min.css" id="ltrCss">
+      <link rel="stylesheet" href="./css/bootstrap.rtl.min.css" id="rtlCss">
+    -->
+    <style id="bootstrap_css"></style>
+    <style>
+      [v-cloak] {
+        display: none !important;
+      }
+      main .container {
+        padding-top: 60px;
+      }
+    </style>
+  </head>
+  <body id=body class="h-100">
+    <div v-cloak v-bind:dir=dir v-bind:lang=lang class="d-flex flex-column h-100">
+      <header class="py-3 mb-3 border-bottom">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">{{t('title.short')}}</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                  <li class="nav-item">
+                    <router-link class="nav-link" to="/">Home</router-link>
+                  </li>
+                  <li class="nav-item">
+                    <router-link class="nav-link" to="/search">Search</router-link>
+                  </li>
+                  <li class="nav-item">
+                    <router-link class="nav-link" to="/settings">Settings</router-link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+      </header>
+      <main class="flex-shrink-0">
+        <div class="container">
+          <router-view></router-view>
+          <form v-on:submit.prevent="onSubmit" class="d-flex col-md-4">
+            <input class="form-control form-control-lg me-2" type="search" v-bind:placeholder="t('search.placeholder')" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">{{t('search.button')}}</button>
+          </form>
+          <p v-for="line in lipsum_debug">{{line}}</p>
+            <form class="d-flex">
+            <select class="form-select form-select-lg" @change="change_lang">
+              <option v-for="(obj,key) in lang_select" v-bind:value="key" v-bind:selected="lang.includes(key)" v-bind:dir="obj.dir">{{obj.name}}</option>
+            </select>
+          </form>
+        </div>
+      </main>
+      <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+          <span class="text-muted">{{t( 'lastUpdated.text', { time:getLocaleTime(), interpolation: { escapeValue: false } } )}}</span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

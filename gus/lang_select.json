@@ -1,0 +1,134 @@
+{
+  "ar": {
+    "name": "اَلْعَرَبِيَّةُ",
+    "dir": "rtl"
+  },
+  "bg": {
+    "name": "български",
+    "dir": "ltr"
+  },
+  "cs": {
+    "name": "čeština",
+    "dir": "ltr"
+  },
+  "cy": {
+    "name": "Cymraeg",
+    "dir": "ltr"
+  },
+  "da": {
+    "name": "dansk",
+    "dir": "ltr"
+  },
+  "de": {
+    "name": "Deutsch",
+    "dir": "ltr"
+  },
+  "en": {
+    "name": "English",
+    "dir": "ltr"
+  },
+  "eo": {
+    "name": "Esperanto",
+    "dir": "ltr"
+  },
+  "es": {
+    "name": "español / castellano",
+    "dir": "ltr"
+  },
+  "et": {
+    "name": "eesti keel",
+    "dir": "ltr"
+  },
+  "eu": {
+    "name": "Euskara",
+    "dir": "ltr"
+  },
+  "fi": {
+    "name": "suomi",
+    "dir": "ltr"
+  },
+  "fr": {
+    "name": "français",
+    "dir": "ltr"
+  },
+  "he": {
+    "name": "עִבְרִית‎",
+    "dir": "rtl"
+  },
+  "hu": {
+    "name": "Magyarország",
+    "dir": "ltr"
+  },
+  "id": {
+    "name": "bahasa Indonesia",
+    "dir": "ltr"
+  },
+  "it": {
+    "name": "Italiano",
+    "dir": "ltr"
+  },
+  "ja": {
+    "name": "日本語",
+    "dir": "ltr"
+  },
+  "ko": {
+    "name": "한국어 / 조선말",
+    "dir": "ltr"
+  },
+  "lt": {
+    "name": "lietuvių kalba",
+    "dir": "ltr"
+  },
+  "ms": {
+    "name": "bahasa",
+    "dir": "ltr"
+  },
+  "nl": {
+    "name": "Nederlands",
+    "dir": "ltr"
+  },
+  "no": {
+    "name": "norsk",
+    "dir": "ltr"
+  },
+  "pl": {
+    "name": "polski",
+    "dir": "ltr"
+  },
+  "pt": {
+    "name": "português",
+    "dir": "ltr"
+  },
+  "ru": {
+    "name": "русский язык",
+    "dir": "ltr"
+  },
+  "sk": {
+    "name": "slovenčina",
+    "dir": "ltr"
+  },
+  "sv": {
+    "name": "svenska",
+    "dir": "ltr"
+  },
+  "th": {
+    "name": "ภาษาไทย",
+    "dir": "ltr"
+  },
+  "tk": {
+    "name": "түркменче",
+    "dir": "ltr"
+  },
+  "tl": {
+    "name": "Tagalog",
+    "dir": "ltr"
+  },
+  "tr": {
+    "name": "Türkçe",
+    "dir": "ltr"
+  },
+  "zh": {
+    "name": "中文",
+    "dir": "ltr"
+  }
+}
