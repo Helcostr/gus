@@ -4,7 +4,7 @@
     <div class="mb-3">
       <label for="langSelect" class="form-label">Language</label>
       <select
-        class="form-select form-select-sm"
+        class="form-select form-select-lg"
         @change="change_lang"
         id="langSelect"
       >
