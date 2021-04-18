@@ -4,7 +4,7 @@ The **Guild Ultimate Search** is an advanced guild search tool for Habitica.
 This is a static webpage tool that is built using [Node.js](https://nodejs.org/en/ "Node.js"). See below for instructions on how to contribute to this project.
 ## Project setup
 You will need to:
-* install Node.js (available on Windows, macOS, Linux).
+* install [Node.js](https://nodejs.org/en/ "Node.js") (available on Windows, macOS, Linux).
 * load this git project onto you computer
 
 When Node.js has finished installing, use your computer terminal (Windows: "Command Prompt or PowerShell", macOS and Linux: "Terminal") to navigate into where the git project is located on your local computer:
@@ -18,7 +18,10 @@ When Node.js has finished installing, use your computer terminal (Windows: "Comm
  * `cd ..` step out of the current folder
  * `ls` list all folders (and files) to understand where you are now
 
-Once you have navigated into where the git project is located on your computer (you should beable to see a `package.json` file, type the following to set up all the dependencies)
+*(Note: don't forget to git checkout this branch, as this section is currently a branch)*
+
+Once you have navigated into where the git project is located on your computer (you should beable to see a `package.json` file) run the following to set up all the dependencies:
+
 ```
 npm install
 ```
@@ -35,7 +38,7 @@ When the project is all done, it is time to build the project
 ```
 npm run build
 ```
-This will take the whole project and build it for deployment. Once the project is built, Node.js is no longer needed to make the project work. To make changes, delete the dist folder and build the project again.
+This will take the whole project and build it for deployment. Once the project is built, Node.js is no longer needed to make the project work. To make changes, delete the `/dist` folder and build the project again.
 
 ### Lints and fixes files
 To normalize the coding styles between several programmers, linting is important to keep the code nice and readable. To execute a lint, type:
