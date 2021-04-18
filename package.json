@@ -8,17 +8,36 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@popperjs/core": "^2.9.2",
+    "bootstrap": "^5.0.0-beta3",
+    "bootstrap-darkmode": "^0.7.0",
     "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "i18next": "^20.2.1",
+    "i18next-browser-languagedetector": "^6.1.0",
+    "i18next-http-backend": "^1.2.1",
+    "raw-loader": "^4.0.2",
+    "rtlcss": "^3.1.2",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-0",
+    "vue-the-storages": "^1.0.2",
+    "vuex": "^4.0.0-0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "^4.5.12",
+    "@vue/cli-plugin-vuex": "^4.5.12",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
+    "css-loader": "^5.2.2",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0"
+    "eslint-plugin-vue": "^7.0.0",
+    "sass": "^1.32.10",
+    "sass-loader": "^10.1.1",
+    "sass-to-string": "^1.5.0",
+    "style-loader": "^2.0.0",
+    "vue-cli-plugin-i18n": "~2.1.0"
   },
   "eslintConfig": {
     "root": true,

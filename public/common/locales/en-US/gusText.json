@@ -1,0 +1,56 @@
+{
+	"about": {
+		"tagline": "Welcome to GUS.",
+		"flavorBody": "A friend of the pirate GuildBot. GuildBot sails the seven seas and collects data of all the ships.. um guilds of Habitica.",
+		"faqTitle":"Frequently Ask Questions",
+		"faq": [{
+				"question": "Why does my guild not appear?",
+				"answer": "If your guild has just been created, or is under current investigation of the pirates, the guild will not show until completed."
+			},
+			{
+				"question": "Why each guild has only one category assigned?",
+				"answer": "To avoid over classification, we only assign one category to one guild."
+			},
+			{
+				"question": "Why can't find my language variant like Pirate English?",
+				"answer": "To avoid splintering of languages we group each language into a single group. The languages groups are based on the codes as specified ISO 2 (639-1) Letter Language. That being said, check out the summary for your group."
+			}
+		]
+	},
+	"search": {
+		"placeholder":"Start typing here...",
+		"button":"Search"
+	},
+	"title": {
+		"habitica": "Habitica",
+		"short": "GUS",
+		"long": "Guild Ultimate Search",
+		"pageTitle": "GUS | Guild Ultimate Search (for Habitica) | {{ pagename }}"
+	},
+	"bugReport": {
+		"text": "Found a bug? Report it in the {{-link}}",
+		"url": "https://habitica.com/groups/guild/d9a0ec1e-352b-4697-a5d5-fb45c98fb4a3",
+		"urlTitle": "Testing & Bug Squashing for Dragon Tools"
+	},
+	"searchFlavor": {
+		"text": "Hello! I searched {{ gusWithSearchTerms }}. Here is the list:",
+		"gusWithSearchTerms": "{{ GUS }} with search terms: {{ list }}",
+		"seperator": ", "
+	},
+	"searchFlavorMultilingual": {
+		"text_0": "Argh... there be no groups found with yer search parameter.",
+		"text_1": "Hello! There {{ amt }} {{ mladjective }} {{ group }} here. Here is a list from {{ gusLink }}. Your welcome to chat in the Tavern or try the following guilds:",
+		"amt_1": "is one",
+		"amt_2": "are a couple",
+		"amt_3": "are a few",
+		"amt_5": "are several",
+		"group": "group",
+		"group_plural": "groups",
+		"mladjective": "multilingual {{ language }}",
+		"mladjective_nonspecific": "multilingual"
+	},
+	"lastUpdated":{
+		"text":"Last updated: {{ time }}",
+		"loading":"Loading"
+	}
+}

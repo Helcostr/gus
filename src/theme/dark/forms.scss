@@ -1,0 +1,5 @@
+$input-color: #000;
+$input-focus-color: #000;
+$input-bg: $secondary;
+$input-focus-bg: tint-color($input-bg,50%);
+@import "bootstrap/scss/forms";

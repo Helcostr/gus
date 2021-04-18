@@ -1,0 +1,10 @@
+/*
+$default-color: #bebebe;
+$default-bg: #222;
+$default-dark-bg: #181818;
+$default-header-bg: #202020;
+$default-border: #404040;
+*/
+$accordion-button-active-bg:              $primary;
+$accordion-button-active-color:           tint-color($component-active-bg, 90%);
+@import "bootstrap/scss/accordion";
